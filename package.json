@@ -14,8 +14,9 @@
     "watchify": "^1.0.6"
   },
   "dependencies": {
+    "bootstrap": "git://github.com/twbs/bootstrap#master",
     "vue": "git://github.com/yyx990803/vue#dev",
-    "vue-resource": "git@github.com:vuejs/vue-resource.git#master",
-    "vue-router": "git@github.com:vuejs/vue-router.git#master"
+    "vue-resource": "git://github.com/vuejs/vue-resource.git#master",
+    "vue-router": "git://github.com/vuejs/vue-router.git#master"
   }
 }
