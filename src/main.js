@@ -15,9 +15,17 @@ new Vue({
     stars: 5,
     github: 'dbpolito',
     columns: ['name', 'stars', 'watchers', 'language'],
-    repos: []
+    featured: ['firestead'],
+    repos: [],
   },
   methods: {
+    isFeatured: function(name) {
+        var names = this.repos.map(function(repo) {
+            return repo.name;
+        });
+
+        return this.featured.indexOf(name) !== -1;
+    },
     sortBy: function(sortKey) {
         this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
         this.sortKey = sortKey;
@@ -28,7 +36,6 @@ new Vue({
         var self = this;
 
         return repos.filter(function(repo) {
-            console.log(self.stars);
             return repo.stars >= self.stars;
         });
     }
