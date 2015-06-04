@@ -14,7 +14,7 @@ new Vue({
     search: '',
     stars: 5,
     github: 'dbpolito',
-    columns: ['name', 'stars', 'watchers', 'language'],
+    columns: ['name', 'stars', 'forks', 'language'],
     featured: ['firestead'],
     repos: [],
   },
@@ -53,7 +53,7 @@ new Vue({
                     'name': repo.name,
                     'description': repo.description,
                     'stars': +repo.stargazers_count,
-                    'watchers': +repo.watchers_count,
+                    'forks': +repo.forks_count,
                     'language': repo.language,
                     'url': repo.html_url,
                 }
