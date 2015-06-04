@@ -1,0 +1,51 @@
+<h1>Hey, take a look at {{ github }} repos!!!</h1>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="form-group">
+            <label for="search">Search</label>
+            <input v-model="search" id="search" class="form-control" type="input">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label for="stars">Min Stars</label>
+            <input v-model="stars" id="stars" class="form-control" type="number">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th v-repeat="column: columns"
+                v-on="click: sortBy(column)"
+            >
+                {{ column | capitalize }}
+                <i class="fa"
+                    v-if="sortKey == column"
+                    v-class="
+                        fa-caret-up: reverse == true,
+                        fa-caret-down: reverse == false
+                    "
+                ></i>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-repeat="repo: repos | stars | filterBy search | orderBy sortKey reverse">
+            <td>{{ repo.name }}</td>
+            <td>{{ repo.stars }}</td>
+            <td>{{ repo.watchers }}</td>
+            <td>{{ repo.language }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h1>Debug =)</h1>
+
+<pre>
+{{ $data | json  }}
+</pre>
