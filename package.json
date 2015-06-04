@@ -1,0 +1,21 @@
+{
+  "name": "vue-demo",
+  "version": "1.0.0",
+  "description": "Demo Project",
+  "main": "src/main.js",
+  "author": "dbpolito",
+  "license": "MIT",
+  "scripts": {
+    "dev": "watchify -e src/main.js -t partialify -o build/build.js"
+  },
+  "devDependencies": {
+    "insert-css": "^0.2.0",
+    "partialify": "^3.1.1",
+    "watchify": "^1.0.6"
+  },
+  "dependencies": {
+    "vue": "git://github.com/yyx990803/vue#dev",
+    "vue-resource": "git@github.com:vuejs/vue-resource.git#master",
+    "vue-router": "git@github.com:vuejs/vue-router.git#master"
+  }
+}
