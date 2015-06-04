@@ -1,3 +1,7 @@
 #app table th {
     cursor: pointer;
 }
+
+#app table tr.featured {
+    font-weight: bold;
+}

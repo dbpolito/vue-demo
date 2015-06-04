@@ -33,8 +33,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-repeat="repo: repos | stars | filterBy search | orderBy sortKey reverse">
-            <td>{{ repo.name }}</td>
+        <tr
+            v-repeat="repo: repos | stars | filterBy search | orderBy sortKey reverse"
+            v-class="featured: isFeatured(repo.name)"
+        >
+            <td><a href="{{ repo.url }}" target="_blank">{{ repo.name }}</a></td>
             <td>{{ repo.stars }}</td>
             <td>{{ repo.watchers }}</td>
             <td>{{ repo.language }}</td>
