@@ -9471,9 +9471,9 @@ function traverse (obj) {
 
 module.exports = Watcher
 },{"./batcher":"/Users/mac/Sites/dbpolito/vue-demo/node_modules/vue/src/batcher.js","./config":"/Users/mac/Sites/dbpolito/vue-demo/node_modules/vue/src/config.js","./observer":"/Users/mac/Sites/dbpolito/vue-demo/node_modules/vue/src/observer/index.js","./parsers/expression":"/Users/mac/Sites/dbpolito/vue-demo/node_modules/vue/src/parsers/expression.js","./util":"/Users/mac/Sites/dbpolito/vue-demo/node_modules/vue/src/util/index.js"}],"/Users/mac/Sites/dbpolito/vue-demo/src/app.css":[function(require,module,exports){
-module.exports = '#app table th {\n    cursor: pointer;\n}\n';
+module.exports = '#app table th {\n    cursor: pointer;\n}\n\n#app table tr.featured {\n    font-weight: bold;\n}\n';
 },{}],"/Users/mac/Sites/dbpolito/vue-demo/src/app.html":[function(require,module,exports){
-module.exports = '<h1>Hey, take a look at {{ github }} repos!!!</h1>\n\n<div class="row">\n    <div class="col-md-10">\n        <div class="form-group">\n            <label for="search">Search</label>\n            <input v-model="search" id="search" class="form-control" type="input">\n        </div>\n    </div>\n    <div class="col-md-2">\n        <div class="form-group">\n            <label for="stars">Min Stars</label>\n            <input v-model="stars" id="stars" class="form-control" type="number">\n        </div>\n    </div>\n</div>\n\n<table class="table table-bordered table-striped">\n    <thead>\n        <tr>\n            <th v-repeat="column: columns"\n                v-on="click: sortBy(column)"\n            >\n                {{ column | capitalize }}\n                <i class="fa"\n                    v-if="sortKey == column"\n                    v-class="\n                        fa-caret-up: reverse == true,\n                        fa-caret-down: reverse == false\n                    "\n                ></i>\n            </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-repeat="repo: repos | stars | filterBy search | orderBy sortKey reverse">\n            <td>{{ repo.name }}</td>\n            <td>{{ repo.stars }}</td>\n            <td>{{ repo.watchers }}</td>\n            <td>{{ repo.language }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<hr>\n\n<h1>Debug =)</h1>\n\n<pre>\n{{ $data | json  }}\n</pre>\n';
+module.exports = '<h1>Hey, take a look at {{ github }} repos!!!</h1>\n\n<div class="row">\n    <div class="col-md-10">\n        <div class="form-group">\n            <label for="search">Search</label>\n            <input v-model="search" id="search" class="form-control" type="input">\n        </div>\n    </div>\n    <div class="col-md-2">\n        <div class="form-group">\n            <label for="stars">Min Stars</label>\n            <input v-model="stars" id="stars" class="form-control" type="number">\n        </div>\n    </div>\n</div>\n\n<table class="table table-bordered table-striped">\n    <thead>\n        <tr>\n            <th v-repeat="column: columns"\n                v-on="click: sortBy(column)"\n            >\n                {{ column | capitalize }}\n                <i class="fa"\n                    v-if="sortKey == column"\n                    v-class="\n                        fa-caret-up: reverse == true,\n                        fa-caret-down: reverse == false\n                    "\n                ></i>\n            </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr\n            v-repeat="repo: repos | stars | filterBy search | orderBy sortKey reverse"\n            v-class="featured: isFeatured(repo.name)"\n        >\n            <td><a href="{{ repo.url }}" target="_blank">{{ repo.name }}</a></td>\n            <td>{{ repo.stars }}</td>\n            <td>{{ repo.watchers }}</td>\n            <td>{{ repo.language }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<hr>\n\n<h1>Debug =)</h1>\n\n<pre>\n{{ $data | json  }}\n</pre>\n';
 },{}],"/Users/mac/Sites/dbpolito/vue-demo/src/main.js":[function(require,module,exports){
 require('insert-css')(require('./app.css'))
 
@@ -9492,9 +9492,17 @@ new Vue({
     stars: 5,
     github: 'dbpolito',
     columns: ['name', 'stars', 'watchers', 'language'],
-    repos: []
+    featured: ['firestead'],
+    repos: [],
   },
   methods: {
+    isFeatured: function(name) {
+        var names = this.repos.map(function(repo) {
+            return repo.name;
+        });
+
+        return this.featured.indexOf(name) !== -1;
+    },
     sortBy: function(sortKey) {
         this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
         this.sortKey = sortKey;
@@ -9505,7 +9513,6 @@ new Vue({
         var self = this;
 
         return repos.filter(function(repo) {
-            console.log(self.stars);
             return repo.stars >= self.stars;
         });
     }
